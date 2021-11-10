@@ -24,7 +24,11 @@
 #include <sstream>
 #include <opencv.hpp>
 #include <core/mat.hpp>
-
+#include <vector>
+#include "../../../../../../../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/vector"
+#include <cstring>
+//using namespace std;
+//using namespace cv;
 class DepthFrameListener : public astra::FrameListener
 {
 public:
@@ -81,10 +85,58 @@ public:
     void on_frame_ready(astra::StreamReader& reader,
                         astra::Frame& frame) override
     {
+        cv::RotatedRect ellipsemege;
+        bool judge = false;
+        try {
+            const astra::ColorFrame colorFrame = frame.get<astra::ColorFrame>();//加的
+            int width1 = colorFrame.width();
+            int height1 = colorFrame.height();
+            init_texture(width1, height1);//width height有关
+
+            check_fps();
+            if (isPaused_){return;}
+            const astra::RgbPixel* colorData = colorFrame.data();
+            cv::Mat M(height1, width1, CV_8UC3, cv::Scalar(0, 0, 255));
+            int num = 0;
+            for (int i = 0; i < height1; i++) {
+                for (int j = 0; j < width1; j++) {
+                    M.at<cv::Vec3b>(i, j)[0] = colorData[num].b;
+                    M.at<cv::Vec3b>(i, j)[1] = colorData[num].g;
+                    M.at<cv::Vec3b>(i, j)[2] = colorData[num].r;
+                    num++;
+                }
+            }
+            cv::imshow("jjj", M);
+            try {
+
+                ellipsemege = find_strawberry_red(M, M.rows, M.cols);
+                if (ellipsemege.center.x ==-10000) {
+                    std::cout << "找到个假的" << std::endl;
+                    return;
+                }
+                std::cout << "找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
+                judge = true;
+                //
+            }
+            catch (const char*& e) {
+            }
+        }
+        catch (const char*& e) {
+            std::cout << "这里报错了" << std::endl;
+        }
+        if (judge) {
+            std::cout<<"真的找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
+        }
+            //const astra::ColorFrame colorFrame = frame.get<astra::ColorFrame>();//加的
+            //std::cout<<colorFrame.data()<<std::endl;
+
+
+
+
         const astra::PointFrame pointFrame = frame.get<astra::PointFrame>();
         const int width = pointFrame.width();
         const int height = pointFrame.height();
-        std::cout << "woshisbbbbbbbbbbbbbbbbbbbbbb" << std::endl;
+        //std::cout << "woshisbbbbbbbbbbbbbbbbbbbbbb" << std::endl;
 
         init_texture(width, height);//width height有关
 
@@ -106,20 +158,112 @@ public:
             displayBuffer_[rgbaOffset + 3] = 255;
         }
 
-        cv::Mat M(height, width, CV_8UC3, cv::Scalar(0, 0, 255));
-        int num = 0;
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                M.at<cv::Vec3b>(i, j)[0] = vizBuffer[num].b;
-                M.at<cv::Vec3b>(i, j)[1] = vizBuffer[num].g;
-                M.at<cv::Vec3b>(i, j)[2] = vizBuffer[num].r;
-                num++;
-            }
-        }
-        cv::imshow("jjj", M);
+
 
 
         texture_.update(displayBuffer_.get());
+    }
+
+
+    std::vector<std::vector<cv::Point>> find_biggest_contour(cv::Mat M) {
+        //std::cout << "222222222222" << std::endl;
+        cv::Mat image = M.clone();
+        //Mat contours;
+        //Mat hierarchy;
+        std::vector<std::vector<cv::Point>> contours;
+        std::vector<cv::Vec4i> hierarchy;
+        findContours(image, contours, hierarchy, cv::RETR_LIST, cv::CHAIN_APPROX_SIMPLE);
+
+        double maxarea = 0;
+        int maxAreaIdx = 0;
+        for (int index = contours.size() - 1; index >= 0; index--)
+        {
+            double tmparea = fabs(contourArea(contours[index]));
+            if (tmparea > maxarea)
+            {
+                maxarea = tmparea;
+                maxAreaIdx = index;//记录最大轮廓的索引号
+            }
+        }
+        //RNG& rng = theRNG();
+        //RotatedRect ellipsemege = fitEllipse(contours[maxAreaIdx]);
+        //Mat M_copy = M.clone();
+        //ellipse(M_copy, ellipsemege, Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3);
+        std::vector<std::vector<cv::Point>> contourlist;
+        //std::cout << "33333333333" << std::endl;
+        if (contours.size() == 0) {
+            return contourlist;
+        }
+        contourlist.push_back(contours[maxAreaIdx]);
+        //std::cout << "333333333334" << std::endl;
+
+        return contourlist;
+    }
+
+    cv::Mat overlay_mask(cv::Mat mask, cv::Mat image) {
+        cv::Mat rgb_mask;
+        cvtColor(mask, rgb_mask, cv::COLOR_GRAY2RGB);
+        cv::Mat result;
+        addWeighted(rgb_mask, 0.5, image, 0.5, 0, result);
+        return result;
+
+    }
+
+    cv::RotatedRect find_strawberry_red(cv::Mat M, int height, int width)
+    {
+        std::cout << "1111111" << std::endl;
+        int max_dimension = std::max(height, width);
+        int scale = 700 / max_dimension;
+        cv::Size dsize = cv::Size(M.cols * scale, M.rows * scale);
+        cv::Mat image = cv::Mat(dsize, CV_32S);
+        resize(M, image, dsize);
+        cv::Mat image_blur;
+        cv::GaussianBlur(image, image_blur, cv::Size(7, 7), 0);
+        cv::Mat image_blur_hsv;
+        cvtColor(image_blur, image_blur_hsv, cv::COLOR_RGB2HSV, 0);
+        cv::InputArray min_red = (0, 100, 80);//不知道这样行不行？？？
+        cv::InputArray max_red = (0, 100, 80);//不知道这样行不行？？？
+        cv::Mat mask1;
+        inRange(image_blur_hsv, cv::Scalar(0, 100, 80), cv::Scalar(10, 256, 256), mask1);
+        cv::InputArray min_red2 = (170, 100, 80);//不知道这样行不行？？？
+        cv::InputArray max_red2 = (180, 255, 255);//不知道这样行不行？？？
+        cv::Mat mask2;
+        inRange(image_blur_hsv, min_red2, max_red2, mask2);
+        cv::Mat mask = mask1 + mask2;//mask是什么格式的？？？？？
+        cv::Size ksize = cv::Size(15, 15);
+        cv::Mat kernel = getStructuringElement(cv::MORPH_ELLIPSE, ksize);
+        cv::Mat mask_closed;
+        morphologyEx(mask, mask_closed, cv::MORPH_CLOSE, kernel);
+        cv::Mat mask_clean;
+        morphologyEx(mask_closed, mask_clean, cv::MORPH_OPEN, kernel);
+        //try {
+            std::vector<std::vector<cv::Point>> biggest_contour;
+            biggest_contour = find_biggest_contour(mask_clean);
+            if (biggest_contour.size() == 0) {
+                std::cout << "没找到" << std::endl;
+                cv::RotatedRect ellipsemege1;
+                ellipsemege1.center.x = -10000;
+                return ellipsemege1;
+            }
+            else {
+                cv::RNG& rng = cv::theRNG();
+                cv::RotatedRect ellipsemege = cv::fitEllipse(biggest_contour[0]);
+                cv::Mat M_copy = M.clone();
+                ellipse(M_copy, ellipsemege, cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3);
+                cv::imshow("oo", M_copy);
+                cv::waitKey(0);
+                std::cout << "坐标IN找草莓: " << ellipsemege.center.x << std::endl;
+                cv::Mat result;
+                cvtColor(M_copy, result, cv::COLOR_RGB2BGR);
+                return ellipsemege;
+            }
+       // }
+        //catch (const char*& e) {
+
+        //}
+
+        //return ellipsemege;
+
     }
 
     void copy_depth_data(astra::Frame& frame)
@@ -372,6 +516,8 @@ int main(int argc, char** argv)
 
     astra::StreamSet streamSet;
     astra::StreamReader reader = streamSet.create_reader();
+    reader.stream<astra::ColorStream>().start();
+
     reader.stream<astra::PointStream>().start();
 
     auto depthStream = configure_depth(reader);
