@@ -25,10 +25,14 @@
 #include <opencv.hpp>
 #include <core/mat.hpp>
 #include <vector>
-#include "../../../../../../../Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/vector"
 #include <cstring>
+#include<fstream>
+#include<iostream>
+#include<ctime>
 //using namespace std;
 //using namespace cv;
+float X = 0;
+float Y = 0;
 class DepthFrameListener : public astra::FrameListener
 {
 public:
@@ -74,16 +78,16 @@ public:
         const auto precision = std::cout.precision();
 
         std::cout << std::fixed
-                  << std::setprecision(1)
-                  << fps << " fps ("
-                  << std::setprecision(1)
-                  << elapsedMillis_ << " ms)"
-                  << std::setprecision(precision)
-                  << std::endl;
+            << std::setprecision(1)
+            << fps << " fps ("
+            << std::setprecision(1)
+            << elapsedMillis_ << " ms)"
+            << std::setprecision(precision)
+            << std::endl;
     }
 
     void on_frame_ready(astra::StreamReader& reader,
-                        astra::Frame& frame) override
+        astra::Frame& frame) override
     {
         cv::RotatedRect ellipsemege;
         bool judge = false;
@@ -94,7 +98,7 @@ public:
             init_texture(width1, height1);//width height有关
 
             check_fps();
-            if (isPaused_){return;}
+            if (isPaused_) { return; }
             const astra::RgbPixel* colorData = colorFrame.data();
             cv::Mat M(height1, width1, CV_8UC3, cv::Scalar(0, 0, 255));
             int num = 0;
@@ -110,11 +114,11 @@ public:
             try {
 
                 ellipsemege = find_strawberry_red(M, M.rows, M.cols);
-                if (ellipsemege.center.x ==-10000) {
-                    std::cout << "找到个假的" << std::endl;
+                if (ellipsemege.center.x == -10000) {
+                    //std::cout << "找到个假的" << std::endl;
                     return;
                 }
-                std::cout << "找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
+                //std::cout << "找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
                 judge = true;
                 //
             }
@@ -125,10 +129,13 @@ public:
             std::cout << "这里报错了" << std::endl;
         }
         if (judge) {
-            std::cout<<"真的找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
+            std::cout << "真的找到了:" << ellipsemege.center.x << " and " << ellipsemege.center.y << std::endl;
+
+            X = ellipsemege.center.x;
+            Y = ellipsemege.center.y;
         }
-            //const astra::ColorFrame colorFrame = frame.get<astra::ColorFrame>();//加的
-            //std::cout<<colorFrame.data()<<std::endl;
+        //const astra::ColorFrame colorFrame = frame.get<astra::ColorFrame>();//加的
+        //std::cout<<colorFrame.data()<<std::endl;
 
 
 
@@ -163,7 +170,6 @@ public:
 
         texture_.update(displayBuffer_.get());
     }
-
 
     std::vector<std::vector<cv::Point>> find_biggest_contour(cv::Mat M) {
         //std::cout << "222222222222" << std::endl;
@@ -211,7 +217,7 @@ public:
 
     cv::RotatedRect find_strawberry_red(cv::Mat M, int height, int width)
     {
-        std::cout << "1111111" << std::endl;
+        //std::cout << "1111111" << std::endl;
         int max_dimension = std::max(height, width);
         int scale = 700 / max_dimension;
         cv::Size dsize = cv::Size(M.cols * scale, M.rows * scale);
@@ -220,12 +226,12 @@ public:
         cv::Mat image_blur;
         cv::GaussianBlur(image, image_blur, cv::Size(7, 7), 0);
         cv::Mat image_blur_hsv;
-        cvtColor(image_blur, image_blur_hsv, cv::COLOR_RGB2HSV, 0);
-        cv::InputArray min_red = (0, 100, 80);//不知道这样行不行？？？
-        cv::InputArray max_red = (0, 100, 80);//不知道这样行不行？？？
+        cvtColor(image_blur, image_blur_hsv, cv::COLOR_BGR2HSV, 0);
+        cv::InputArray min_red = (0, 43, 46);//不知道这样行不行？？？
+        cv::InputArray max_red = (10, 255, 255);//不知道这样行不行？？？
         cv::Mat mask1;
         inRange(image_blur_hsv, cv::Scalar(0, 100, 80), cv::Scalar(10, 256, 256), mask1);
-        cv::InputArray min_red2 = (170, 100, 80);//不知道这样行不行？？？
+        cv::InputArray min_red2 = (156, 43, 46);//不知道这样行不行？？？
         cv::InputArray max_red2 = (180, 255, 255);//不知道这样行不行？？？
         cv::Mat mask2;
         inRange(image_blur_hsv, min_red2, max_red2, mask2);
@@ -237,32 +243,32 @@ public:
         cv::Mat mask_clean;
         morphologyEx(mask_closed, mask_clean, cv::MORPH_OPEN, kernel);
         //try {
-            std::vector<std::vector<cv::Point>> biggest_contour;
-            biggest_contour = find_biggest_contour(mask_clean);
-            if (biggest_contour.size() == 0) {
-                std::cout << "没找到" << std::endl;
-                cv::RotatedRect ellipsemege1;
-                ellipsemege1.center.x = -10000;
-                return ellipsemege1;
-            }
-            else {
-                cv::RNG& rng = cv::theRNG();
-                cv::RotatedRect ellipsemege = cv::fitEllipse(biggest_contour[0]);
-                cv::Mat M_copy = M.clone();
-                ellipse(M_copy, ellipsemege, cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3);
-                cv::imshow("oo", M_copy);
-                cv::waitKey(0);
-                std::cout << "坐标IN找草莓: " << ellipsemege.center.x << std::endl;
-                cv::Mat result;
-                cvtColor(M_copy, result, cv::COLOR_RGB2BGR);
-                return ellipsemege;
-            }
-       // }
-        //catch (const char*& e) {
+        std::vector<std::vector<cv::Point>> biggest_contour;
+        biggest_contour = find_biggest_contour(mask_clean);
+        if (biggest_contour.size() == 0) {
+            //std::cout << "没找到" << std::endl;
+            cv::RotatedRect ellipsemege1;
+            ellipsemege1.center.x = -10000;
+            return ellipsemege1;
+        }
+        else {
+            cv::RNG& rng = cv::theRNG();
+            cv::RotatedRect ellipsemege = cv::fitEllipse(biggest_contour[0]);
+            cv::Mat M_copy = M.clone();
+            ellipse(M_copy, ellipsemege, cv::Scalar(rng.uniform(0, 255), rng.uniform(0, 255), rng.uniform(0, 255)), 3);
+            cv::imshow("oo", M_copy);
+            cv::waitKey(0);
+            //std::cout << "坐标IN找草莓: " << ellipsemege.center.x << std::endl;
+            cv::Mat result;
+            cvtColor(M_copy, result, cv::COLOR_RGB2BGR);
+            return ellipsemege;
+        }
+        // }
+         //catch (const char*& e) {
 
-        //}
+         //}
 
-        //return ellipsemege;
+         //return ellipsemege;
 
     }
 
@@ -289,11 +295,69 @@ public:
         }
     }
 
-    void update_mouse_position(sf::RenderWindow& window,
-                               const astra::CoordinateMapper& coordinateMapper)
+    void my_position(const astra::CoordinateMapper& coordinateMapper)
+    {
+        const size_t index = (depthWidth_ * int(Y) + int(X));
+        const short z = depthData_[index];
+        std::cout << "z: " << z << std::endl;
+        coordinateMapper.convert_depth_to_world(float(X),
+            float(Y),
+            float(z),
+            mouseWorldX_,
+            mouseWorldY_,
+            mouseWorldZ_);
+        std::cout << mouseWorldX_ << ", " << mouseWorldX_ << ", " << mouseWorldZ_ << std::endl;
+    }
+
+    void my_position1(sf::RenderWindow& window,
+        const astra::CoordinateMapper& coordinateMapper)
     {
         const sf::Vector2i position = sf::Mouse::getPosition(window);
         const sf::Vector2u windowSize = window.getSize();
+
+        std::cout << "start program" << std::endl;
+
+
+        //float mouseNormX = position.x / float(windowSize.x);
+        //float mouseNormY = position.y / float(windowSize.y);
+
+        //mouseX_ = depthWidth_ * mouseNormX;
+        //mouseY_ = depthHeight_ * mouseNormY;
+
+        //if (mouseX_ >= depthWidth_ ||
+        //    mouseY_ >= depthHeight_ ||
+        //    mouseX_ < 0 ||
+        //    mouseY_ < 0) {
+        //    return;
+        //}
+
+        const size_t index = (depthWidth_ * Y + X);//根据x和y来计算z。
+        const short z = depthData_[index];
+        std::cout << "z: " << z << std::endl;//z是什么呀???
+
+        coordinateMapper.convert_depth_to_world(float(X),
+            float(Y),
+            float(z),
+            mouseWorldX_,
+            mouseWorldY_,
+            mouseWorldZ_);
+        //将深度坐标转换为世界坐标 单位？ 哪是0？？？
+        std::cout << "真实世界坐标： " << mouseWorldX_ << " " << mouseWorldY_ << " " << mouseWorldZ_ << std::endl;
+        std::cout << X << " " << Y << " " << z << std::endl;
+
+        std::ofstream ofs;
+        ofs.open("C:/Users/Lenovo/Desktop/test.txt", std::ios::out);
+        ofs << "catch " << mouseWorldX_ << " " << mouseWorldY_ << " " << mouseWorldZ_ << std::endl;
+    }
+
+    void update_mouse_position(sf::RenderWindow& window,
+        const astra::CoordinateMapper& coordinateMapper)
+    {
+        const sf::Vector2i position = sf::Mouse::getPosition(window);
+        const sf::Vector2u windowSize = window.getSize();
+
+
+
 
         float mouseNormX = position.x / float(windowSize.x);
         float mouseNormY = position.y / float(windowSize.y);
@@ -304,26 +368,28 @@ public:
         if (mouseX_ >= depthWidth_ ||
             mouseY_ >= depthHeight_ ||
             mouseX_ < 0 ||
-            mouseY_ < 0) { return; }
+            mouseY_ < 0) {
+            return;
+        }
 
         const size_t index = (depthWidth_ * mouseY_ + mouseX_);//根据x和y来计算z。
         const short z = depthData_[index];
         std::cout << "z: " << z << std::endl;//z是什么呀???
 
         coordinateMapper.convert_depth_to_world(float(mouseX_),
-                                                float(mouseY_),
-                                                float(z),
-                                                mouseWorldX_,
-                                                mouseWorldY_,
-                                                mouseWorldZ_);
+            float(mouseY_),
+            float(z),
+            mouseWorldX_,
+            mouseWorldY_,
+            mouseWorldZ_);
         //将深度坐标转换为世界坐标 单位？ 哪是0？？？
     }
 
     void draw_text(sf::RenderWindow& window,
-                   sf::Text& text,
-                   sf::Color color,
-                   const int x,
-                   const int y) const
+        sf::Text& text,
+        sf::Color color,
+        const int x,
+        const int y) const
     {
         text.setColor(sf::Color::Black);
         text.setPosition(x + 5, y + 5);
@@ -335,8 +401,8 @@ public:
     }
 
     void draw_mouse_overlay(sf::RenderWindow& window,
-                            const float depthWScale,
-                            const float depthHScale) const
+        const float depthWScale,
+        const float depthHScale) const
     {
         if (!isMouseOverlayEnabled_ || !depthData_) { return; }
 
@@ -386,10 +452,10 @@ public:
     void draw_to(sf::RenderWindow& window)//核心？？？
     {
         if (displayBuffer_ != nullptr)
-        { 
+        {
             const float depthWScale = window.getView().getSize().x / displayWidth_;//都是2的缩放比？
             const float depthHScale = window.getView().getSize().y / displayHeight_;
-            std::cout << "depthWScale:" << depthWScale <<" depthHScale: "<< depthHScale << std::endl;
+            std::cout << "depthWScale:" << depthWScale << " depthHScale: " << depthHScale << std::endl;
             sprite_.setScale(depthWScale, depthHScale);
             window.draw(sprite_);
 
@@ -435,33 +501,33 @@ private:
     using ClockType = std::chrono::high_resolution_clock;
 
     ClockType::time_point prev_;
-    float elapsedMillis_{.0f};
+    float elapsedMillis_{ .0f };
 
     sf::Texture texture_;
     sf::Sprite sprite_;
     sf::Font font_;
 
-    int displayWidth_{0};
-    int displayHeight_{0};
+    int displayWidth_{ 0 };
+    int displayHeight_{ 0 };
 
     using BufferPtr = std::unique_ptr<uint8_t[]>;
-    BufferPtr displayBuffer_{nullptr};
+    BufferPtr displayBuffer_{ nullptr };
 
-    int depthWidth_{0};
-    int depthHeight_{0};
+    int depthWidth_{ 0 };
+    int depthHeight_{ 0 };
 
     using DepthPtr = std::unique_ptr<int16_t[]>;
-    DepthPtr depthData_{nullptr};
+    DepthPtr depthData_{ nullptr };
 
-    int mouseX_{0};
-    int mouseY_{0};
-    float mouseWorldX_{0};
-    float mouseWorldY_{0};
-    float mouseWorldZ_{0};
-    bool isPaused_{false};
-    bool isMouseOverlayEnabled_{true};
-    bool isFullHelpEnabled_{false};
-    const char* helpMessage_{nullptr};
+    int mouseX_{ 0 };
+    int mouseY_{ 0 };
+    float mouseWorldX_{ 0 };
+    float mouseWorldY_{ 0 };
+    float mouseWorldZ_{ 0 };
+    bool isPaused_{ false };
+    bool isMouseOverlayEnabled_{ true };
+    bool isFullHelpEnabled_{ false };
+    const char* helpMessage_{ nullptr };
 };
 
 astra::DepthStream configure_depth(astra::StreamReader& reader)
@@ -526,7 +592,7 @@ int main(int argc, char** argv)
 
     DepthFrameListener listener;
 
-    const char* helpMessage = 
+    const char* helpMessage =
         "keyboard shortcut:\n"
         "D      use 640x400 depth resolution\n"
         "F      toggle between fullscreen and windowed mode\n"
@@ -541,11 +607,27 @@ int main(int argc, char** argv)
 
     reader.add_listener(listener);
 
+    std::cout << "X: " << X << " Y: " << Y << std::endl;
+    //auto coordinateMapper = depthStream.coordinateMapper();
+    //listener.my_position(coordinateMapper);
+    //listener.update_mouse_position(window, coordinateMapper);
+
     while (window.isOpen())
     {
         astra_update();
-
         sf::Event event;
+        if (X!=0 && Y!= 0) {
+            std::cout << "X: " << int(X) << " Y: " << int(Y) << std::endl;
+            auto coordinateMapper = depthStream.coordinateMapper();
+            std::cout << "start" << std::endl;
+            listener.my_position1(window, coordinateMapper);
+
+            clock_t start;
+            start = clock();
+            while (clock() - start < 5000) {}
+            std::cout << "end program" << std::endl;
+        }
+
         while (window.pollEvent(event))
         {
             switch (event.type)
@@ -574,8 +656,8 @@ int main(int argc, char** argv)
                     depthStream.set_mode(depthMode);
                     auto newMode = depthStream.mode();
                     printf("Changed depth mode: %dx%d @ %d -> %dx%d @ %d\n",
-                           oldMode.width(), oldMode.height(), oldMode.fps(),
-                           newMode.width(), newMode.height(), newMode.fps());
+                        oldMode.width(), oldMode.height(), oldMode.fps(),
+                        newMode.width(), newMode.height(), newMode.fps());
                     break;
                 }
                 case sf::Keyboard::Escape:
@@ -628,8 +710,12 @@ int main(int argc, char** argv)
             }
             case sf::Event::MouseMoved:
             {
-                auto coordinateMapper = depthStream.coordinateMapper();
-                listener.update_mouse_position(window, coordinateMapper);
+                //std::cout << "X: " << int(X) << " Y: " << int(Y) << std::endl;
+                //auto coordinateMapper = depthStream.coordinateMapper();
+                //listener.my_position1(window,coordinateMapper);
+                // 
+                //listener.my_position(coordinateMapper);
+                //listener.update_mouse_position(window, coordinateMapper);
                 break;
             }
             default:
