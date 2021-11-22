@@ -31,11 +31,6 @@ while(1):
     #print(x, y, z)
     print(X, Y, Z)
 
-    # arm.setIK6([int((pr[0][0]+pr[1][0])/2), int((pr[0][1]+pr[1][1])/2), 150], [0, 0, -1])  # move to [x=0,y=200,=150]
-    # arm.setIK6([110,250,150],[0,0,-1])
-    # time.sleep(1)
-    # arm.setIK6([int((pr[0][0]+pr[1][0])/2), int((pr[0][1]+pr[1][1])/2), 30], [0, 0, -1])  # down
-
     arm.setIK6([X, Y, Z], [X, Y, 0])
     time.sleep(2)
 
