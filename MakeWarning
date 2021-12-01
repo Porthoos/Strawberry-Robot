@@ -1,0 +1,395 @@
+qmj@CS:~/Desktop/AstraSDK-v2-aarch64/samples$ cmake .
+-- The C compiler identification is GNU 7.5.0
+-- The CXX compiler identification is GNU 7.5.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Astra includes in /home/qmj/Desktop/AstraSDK-v2-aarch64/include
+-- Found Astra lib dir: /home/qmj/Desktop/AstraSDK-v2-aarch64/lib
+-- Found Astra libraries: /home/qmj/Desktop/AstraSDK-v2-aarch64/lib/libastra_core.so;/home/qmj/Desktop/AstraSDK-v2-aarch64/lib/libastra_core_api.so;/home/qmj/Desktop/AstraSDK-v2-aarch64/lib/libastra.so;pthread
+-- Found Astra TOML: /home/qmj/Desktop/AstraSDK-v2-aarch64/lib/astra.toml
+-- Found Astra plugins: /home/qmj/Desktop/AstraSDK-v2-aarch64/lib/Plugins/libOrbbecBodyTracking.so;/home/qmj/Desktop/AstraSDK-v2-aarch64/lib/Plugins/libopenni_sensor.so;/home/qmj/Desktop/AstraSDK-v2-aarch64/lib/Plugins/liborbbec_hand.so;/home/qmj/Desktop/AstraSDK-v2-aarch64/lib/Plugins/liborbbec_xs.so
+-- Found Astra plugin TOML: /home/qmj/Desktop/AstraSDK-v2-aarch64/lib/Plugins/orbbec_hand.toml
+-- Performing Test COMPILER_SUPPORTS_CXX11
+-- Performing Test COMPILER_SUPPORTS_CXX11 - Success
+-- Performing Test COMPILER_SUPPORTS_CXX14
+-- Performing Test COMPILER_SUPPORTS_CXX14 - Success
+Setting rpath to $ORIGIN/../lib
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Found SFML .. in /usr/include
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/qmj/Desktop/AstraSDK-v2-aarch64/samples
+qmj@CS:~/Desktop/AstraSDK-v2-aarch64/samples$ make 
+Scanning dependencies of target DepthReaderPoll
+[  2%] Building C object c-api/DepthReaderPoll/CMakeFiles/DepthReaderPoll.dir/main.c.o
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/c-api/DepthReaderPoll/main.c: In function ‘main’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/c-api/DepthReaderPoll/main.c:74:48: warning: passing argument 2 of ‘astra_depthstream_get_chip_id’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+     astra_depthstream_get_chip_id(depthStream, &chipId);
+                                                ^
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/capi/astra.h:24:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/c-api/DepthReaderPoll/main.c:17:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/capi/streams/depth_capi.h:81:29: note: expected ‘uint32_t * {aka unsigned int *}’ but argument is of type ‘const uint32_t * {aka const unsigned int *}’
+ ASTRA_API_EX astra_status_t astra_depthstream_get_chip_id(astra_depthstream_t depthStream,
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+[  5%] Linking C executable ../../bin/DepthReaderPoll
+[  5%] Built target DepthReaderPoll
+Scanning dependencies of target DepthReaderEvent
+[  8%] Building C object c-api/DepthReaderEvent/CMakeFiles/DepthReaderEvent.dir/main.c.o
+[ 11%] Linking C executable ../../bin/DepthReaderEvent
+[ 11%] Built target DepthReaderEvent
+Scanning dependencies of target ColorReaderPoll
+[ 13%] Building C object c-api/ColorReaderPoll/CMakeFiles/ColorReaderPoll.dir/main.c.o
+[ 16%] Linking C executable ../../bin/ColorReaderPoll
+[ 16%] Built target ColorReaderPoll
+Scanning dependencies of target ColorReaderEvent
+[ 19%] Building C object c-api/ColorReaderEvent/CMakeFiles/ColorReaderEvent.dir/main.c.o
+[ 22%] Linking C executable ../../bin/ColorReaderEvent
+[ 22%] Built target ColorReaderEvent
+Scanning dependencies of target InfraredReaderEvent
+[ 25%] Building C object c-api/InfraredReaderEvent/CMakeFiles/InfraredReaderEvent.dir/main.c.o
+[ 27%] Linking C executable ../../bin/InfraredReaderEvent
+[ 27%] Built target InfraredReaderEvent
+Scanning dependencies of target InfraredReaderPoll
+[ 30%] Building C object c-api/InfraredReaderPoll/CMakeFiles/InfraredReaderPoll.dir/main.c.o
+[ 33%] Linking C executable ../../bin/InfraredReaderPoll
+[ 33%] Built target InfraredReaderPoll
+Scanning dependencies of target InfraredColorReaderEvent
+[ 36%] Building C object c-api/InfraredColorReaderEvent/CMakeFiles/InfraredColorReaderEvent.dir/main.c.o
+[ 38%] Linking C executable ../../bin/InfraredColorReaderEvent
+[ 38%] Built target InfraredColorReaderEvent
+Scanning dependencies of target BodyReaderPoll
+[ 41%] Building C object c-api/BodyReaderPoll/CMakeFiles/BodyReaderPoll.dir/main.c.o
+[ 44%] Linking C executable ../../bin/BodyReaderPoll
+[ 44%] Built target BodyReaderPoll
+Scanning dependencies of target DepthReaderEventCPP
+[ 47%] Building CXX object cpp-api/DepthReaderEventCPP/CMakeFiles/DepthReaderEventCPP.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/DepthReaderEventCPP/main.cpp:17:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/DepthReaderEventCPP/main.cpp: In member function ‘void SampleFrameListener::print_depth(const astra::DepthFrame&, const astra::CoordinateMapper&)’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/DepthReaderEventCPP/main.cpp:56:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             if (width != lastWidth_ || height != lastHeight_)
+                 ~~~~~~^~~~~~~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/DepthReaderEventCPP/main.cpp:56:47: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             if (width != lastWidth_ || height != lastHeight_)
+                                        ~~~~~~~^~~~~~~~~~~~~~
+[ 50%] Linking CXX executable ../../bin/DepthReaderEventCPP
+[ 50%] Built target DepthReaderEventCPP
+Scanning dependencies of target ColorReaderEventCPP
+[ 52%] Building CXX object cpp-api/ColorReaderEventCPP/CMakeFiles/ColorReaderEventCPP.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/ColorReaderEventCPP/main.cpp:17:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/ColorReaderEventCPP/main.cpp: In member function ‘void SampleFrameListener::print_color(const astra::ColorFrame&)’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/ColorReaderEventCPP/main.cpp:50:23: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             if (width != lastWidth_ || height != lastHeight_){
+                 ~~~~~~^~~~~~~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/cpp-api/ColorReaderEventCPP/main.cpp:50:47: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             if (width != lastWidth_ || height != lastHeight_){
+                                        ~~~~~~~^~~~~~~~~~~~~~
+[ 55%] Linking CXX executable ../../bin/ColorReaderEventCPP
+[ 55%] Built target ColorReaderEventCPP
+Scanning dependencies of target SimpleDepthViewer-SFML
+[ 58%] Building CXX object sfml/SimpleDepthViewer-SFML/CMakeFiles/SimpleDepthViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp: In member function ‘void DepthFrameListener::draw_text(sf::RenderWindow&, sf::Text&, sf::Color, int, int) const’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp:166:39: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(sf::Color::Black);
+                                       ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp:170:28: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(color);
+                            ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleDepthViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+[ 61%] Linking CXX executable ../../bin/SimpleDepthViewer-SFML
+[ 61%] Built target SimpleDepthViewer-SFML
+Scanning dependencies of target SimpleStreamViewer-SFML
+[ 63%] Building CXX object sfml/SimpleStreamViewer-SFML/CMakeFiles/SimpleStreamViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleStreamViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+[ 66%] Linking CXX executable ../../bin/SimpleStreamViewer-SFML
+[ 66%] Built target SimpleStreamViewer-SFML
+Scanning dependencies of target SimpleColorViewer-SFML
+[ 69%] Building CXX object sfml/SimpleColorViewer-SFML/CMakeFiles/SimpleColorViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp: In member function ‘void ColorFrameListener::draw_text(sf::RenderWindow&, sf::Text&, sf::Color, int, int) const’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:126:39: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(sf::Color::Black);
+                                       ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:130:28: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(color);
+                            ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp: In function ‘int main(int, char**)’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Unknown’ not handled in switch [-Wswitch]
+                 switch (event.key.code)
+                        ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘A’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘B’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘C’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘D’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘E’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘G’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘I’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘J’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘K’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘L’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘M’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘N’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘O’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Q’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘R’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘S’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘T’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘U’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘V’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘W’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘X’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Y’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Z’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num0’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num1’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num2’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num3’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num4’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num5’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num6’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num7’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num8’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Num9’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘LControl’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘LShift’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘LAlt’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘LSystem’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘RControl’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘RShift’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘RAlt’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘RSystem’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Menu’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘LBracket’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘RBracket’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘SemiColon’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Comma’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Period’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Quote’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Slash’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘BackSlash’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Tilde’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Equal’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Dash’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Return’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘BackSpace’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Tab’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘PageUp’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘PageDown’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘End’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Home’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Insert’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Delete’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Add’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Subtract’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Multiply’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Divide’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Left’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Right’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Up’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Down’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad0’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad1’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad2’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad3’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad4’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad5’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad6’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad7’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad8’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Numpad9’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F1’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F2’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F3’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F4’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F5’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F6’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F7’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F8’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F9’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F10’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F11’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F12’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F13’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F14’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘F15’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘Pause’ not handled in switch [-Wswitch]
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleColorViewer-SFML/main.cpp:256:24: warning: enumeration value ‘KeyCount’ not handled in switch [-Wswitch]
+[ 72%] Linking CXX executable ../../bin/SimpleColorViewer-SFML
+[ 72%] Built target SimpleColorViewer-SFML
+Scanning dependencies of target MultiSensorViewer-SFML
+[ 75%] Building CXX object sfml/MultiSensorViewer-SFML/CMakeFiles/MultiSensorViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MultiSensorViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+[ 77%] Linking CXX executable ../../bin/MultiSensorViewer-SFML
+[ 77%] Built target MultiSensorViewer-SFML
+Scanning dependencies of target SimpleBodyViewer-SFML
+[ 80%] Building CXX object sfml/SimpleBodyViewer-SFML/CMakeFiles/SimpleBodyViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp: In member function ‘void BodyVisualizer::draw_text(sf::RenderWindow&, sf::Text&, sf::Color, int, int) const’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp:458:39: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(sf::Color::Black);
+                                       ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp:462:28: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(color);
+                            ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/SimpleBodyViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+[ 83%] Linking CXX executable ../../bin/SimpleBodyViewer-SFML
+[ 83%] Built target SimpleBodyViewer-SFML
+Scanning dependencies of target MaskedColorViewer-SFML
+[ 86%] Building CXX object sfml/MaskedColorViewer-SFML/CMakeFiles/MaskedColorViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp: In member function ‘void MaskedColorFrameListener::draw_text(sf::RenderWindow&, sf::Text&, sf::Color, int, int) const’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp:176:39: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(sf::Color::Black);
+                                       ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp:180:28: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(color);
+                            ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/MaskedColorViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+[ 88%] Linking CXX executable ../../bin/MaskedColorViewer-SFML
+[ 88%] Built target MaskedColorViewer-SFML
+Scanning dependencies of target ColorizedBodyViewer-SFML
+[ 91%] Building CXX object sfml/ColorizedBodyViewer-SFML/CMakeFiles/ColorizedBodyViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp: In member function ‘void ColorizedBodyFrameListener::draw_text(sf::RenderWindow&, sf::Text&, sf::Color, int, int) const’:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp:167:39: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(sf::Color::Black);
+                                       ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+/home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp:171:28: warning: ‘void sf::Text::setColor(const sf::Color&)’ is deprecated [-Wdeprecated-declarations]
+         text.setColor(color);
+                            ^
+In file included from /usr/include/SFML/Graphics.hpp:51:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/ColorizedBodyViewer-SFML/main.cpp:17:
+/usr/include/SFML/Graphics/Text.hpp:177:26: note: declared here
+     SFML_DEPRECATED void setColor(const Color& color);
+                          ^~~~~~~~
+[ 94%] Linking CXX executable ../../bin/ColorizedBodyViewer-SFML
+[ 94%] Built target ColorizedBodyViewer-SFML
+Scanning dependencies of target RotatedBodyViewer-SFML
+[ 97%] Building CXX object sfml/RotatedBodyViewer-SFML/CMakeFiles/RotatedBodyViewer-SFML.dir/main.cpp.o
+In file included from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamSet.hpp:22:0,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/astra_core.hpp:20,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/DeviceController.hpp:21,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra/astra.hpp:22,
+                 from /home/qmj/Desktop/AstraSDK-v2-aarch64/samples/sfml/RotatedBodyViewer-SFML/main.cpp:18:
+/home/qmj/Desktop/AstraSDK-v2-aarch64/include/astra_core/StreamReader.hpp:156:81: warning: ‘__cdecl__’ attribute directive ignored [-Wattributes]
+                                                     astra_reader_frame_t frame)
+                                                                               ^
+[100%] Linking CXX executable ../../bin/RotatedBodyViewer-SFML
+[100%] Built target RotatedBodyViewer-SFML
